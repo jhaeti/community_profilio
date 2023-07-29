@@ -116,7 +116,7 @@ router.get("/users", auth, adminAuth, async (req, res) => {
 
 // Count number of Users in database
 // @returns a number
-router.get("/users-count", auth, adminAuth, async (req, res) => {
+router.get("/users/count", auth, adminAuth, async (req, res) => {
 	try {
 		const count = await User.countDocuments();
 		res.json(count);
@@ -131,7 +131,9 @@ router.delete("/users", auth, adminAuth, async (req, res) => {
 	try {
 		const id = req.body;
 		const { deletedCount } = await User.deleteMany({ _id: { $in: id } });
-		res.status(200).json(deletedCount);
+		res.status(200).json(
+			`${deletedCount} users have been successfully deleted`
+		);
 	} catch (e) {
 		res.sendStatus(500);
 	}

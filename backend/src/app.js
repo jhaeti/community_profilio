@@ -5,7 +5,7 @@ const cors = require("cors");
 require("dotenv").config();
 require("./db/mongoose");
 
-// const productRouter = require("./routes/product");
+const communityProfileRouter = require("./routes/communityProfile");
 const userRouter = require("./routes/user");
 
 const app = express();
@@ -23,7 +23,7 @@ app.use(
 app.use(express.json({ extended: false }));
 
 // Using routers
-// app.use(productRouter);
+app.use(communityProfileRouter);
 app.use(userRouter);
 
 module.exports = app;
