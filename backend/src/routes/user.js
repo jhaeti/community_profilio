@@ -32,6 +32,7 @@ router.post("/users/add-user", auth, adminAuth, async (req, res) => {
 		// Saving user with hash password into DataBase
 		const user = await newUser.save();
 
+		// Sending new user their credentials for accessing data
 		await sendEmail({
 			to: user.email,
 			subject: "This are you details for Community Profilio Logins",
@@ -78,12 +79,19 @@ router.get("/users/me", auth, (req, res) => {
 	res.json({ token, user });
 });
 
-// Delete self from the databse
+// Delete self from the database
 // @return {user}
-router.delete("/users/me", auth, async (req, res) => {
-	const user = await req.user.remove();
-	clearCookie(res, process.env.AUTH_COOKIE_NAME);
-	res.json({ user });
+router.delete("/users/:id", auth, adminAuth, async (req, res) => {
+	try {
+		const user = await User.findById(req.params.id);
+		if (!user) {
+			return res.json("ID not attached to a user");
+		}
+		await user.remove();
+		res.json({ user });
+	} catch (e) {
+		res.sendStatus(500);
+	}
 });
 
 // Handling Logout functionality
