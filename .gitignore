@@ -1,0 +1,8 @@
+backend/.env
+backend/node_modules
+.github
+frontend
+frontend/.env
+frontend/.next
+frontend/node_modules
+

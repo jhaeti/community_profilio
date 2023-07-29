@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+    mongo:
+        image: mongo:latest
+        ports:
+            - "27018:27017"
+        volumes:
+            - mongo-data:/data/db
+
+    backend:
+        image: backend:v10
+        ports:
+            - 5000:5000
+        links:
+            - mongo
+
+volumes:
+    mongo-data:
