@@ -1,7 +1,8 @@
 const express = require("express");
 const auth = require("./middleware/auth");
 const adminAuth = require("./middleware/adminAuth");
-const { setCookie, clearCookie } = require("../controllers/cookies");
+const { setCookie, clearCookie } = require("../utils/cookies");
+const sendEmail = require("../utils/sendEmail");
 
 const User = require("../db/models/user");
 
@@ -9,8 +10,8 @@ const router = express.Router();
 
 // Register Route
 // @return { token, user}
-router.post("/users/register", async (req, res) => {
-	const { name, email, password } = req.body;
+router.post("/users/add-user", auth, adminAuth, async (req, res) => {
+	const { name, email, password, role } = req.body;
 
 	// Basic validation
 	if (!name || !email || !password) {
@@ -26,14 +27,24 @@ router.post("/users/register", async (req, res) => {
 
 		// Create new User if user does not exist
 		const newUser = new User({ ...req.body, token: [] });
+		if (role) newUser.role = role;
 
 		// Saving user with hash password into DataBase
 		const user = await newUser.save();
-		const token = await user.generateAuthToken();
 
-		setCookie(res, process.env.AUTH_COOKIE_NAME, token);
+		await sendEmail({
+			to: user.email,
+			subject: "This are you details for Community Profilio Logins",
+			html: `
+			<div>
+			<h3>Do not share this with anyone</h3>
+			<div>Email: <strong style="color: black;">${user.email}</strong></div>
+			<div>Password: <strong>${password}</strong></div>
+			</div>
+		`,
+		});
+
 		res.status(201).json({
-			token,
 			user,
 		});
 	} catch (e) {
