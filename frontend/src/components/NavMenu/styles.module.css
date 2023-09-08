@@ -1,0 +1,78 @@
+.nav {
+	border-top: 1rem solid var(--color-primary);
+	text-transform: uppercase;
+}
+
+.nav > div {
+	display: flex;
+	justify-content: space-between;
+}
+
+.nav_branding {
+	padding: 1rem 0;
+}
+
+.nav_menu {
+	list-style: none;
+	display: flex;
+	gap: 2rem;
+	color: inherit;
+}
+
+.nav_item {
+	position: relative;
+}
+
+.nav_item a {
+	display: block;
+	padding: 1rem 2rem;
+}
+
+.active {
+	background-color: var(--color-primary);
+	border-bottom-left-radius: 1rem;
+	border-bottom-right-radius: 1rem;
+	color: var(--color-white);
+	font-weight: bold;
+}
+
+.active:before {
+	content: "";
+	position: absolute;
+	width: 2rem;
+	height: 2rem;
+	background: var(--color-white);
+	top: 0;
+	left: -2rem;
+	border-radius: 0 50% 0 0;
+	z-index: 1;
+}
+.active + div::before {
+	content: "";
+	position: absolute;
+	width: 2rem;
+	height: 2rem;
+	background: var(--color-primary);
+	top: 0;
+	left: -2rem;
+}
+.active:after {
+	content: "";
+	position: absolute;
+	width: 2rem;
+	height: 2rem;
+	background: var(--color-white);
+	top: 0;
+	right: -2rem;
+	border-radius: 50% 0 0 0;
+	z-index: 1;
+}
+.active + div::after {
+	content: "";
+	position: absolute;
+	width: 2rem;
+	height: 2rem;
+	background: var(--color-primary);
+	top: 0;
+	right: -2rem;
+}
