@@ -1,3 +1,3 @@
-# COMMUNITIY PROFILIO
+# COMMUNITY PROFILIO
 
 ### Opening soon
