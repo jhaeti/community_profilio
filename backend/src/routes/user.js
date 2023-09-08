@@ -1,10 +1,12 @@
 const express = require("express");
+const sgMail = require("@sendgrid/mail");
 const auth = require("./middleware/auth");
 const adminAuth = require("./middleware/adminAuth");
 const { setCookie, clearCookie } = require("../utils/cookies");
-const sendEmail = require("../utils/sendEmail");
 
 const User = require("../db/models/user");
+const CommunityProfile = require("../db/models/communityProfile");
+const Requester = require("../db/models/requester");
 
 const router = express.Router();
 
@@ -33,9 +35,11 @@ router.post("/users/add-user", auth, adminAuth, async (req, res) => {
 		const user = await newUser.save();
 
 		// Sending new user their credentials for accessing data
-		await sendEmail({
+		sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+		sgMail.send({
+			from: process.env.DEFAULT_ADMIN_EMAIL,
 			to: user.email,
-			subject: "This are you details for Community Profilio Logins",
+			subject: "This are your details for Community Profilio Logins",
 			html: `
 			<div>
 			<h3>Do not share this with anyone</h3>
@@ -79,7 +83,7 @@ router.get("/users/me", auth, (req, res) => {
 	res.json({ token, user });
 });
 
-// Delete self from the database
+// Delete one user from the database
 // @return {user}
 router.delete("/users/:id", auth, adminAuth, async (req, res) => {
 	try {
@@ -89,6 +93,33 @@ router.delete("/users/:id", auth, adminAuth, async (req, res) => {
 		}
 		await user.remove();
 		res.json({ user });
+	} catch (e) {
+		res.sendStatus(500);
+	}
+});
+
+// Getting community profiles created by user
+router.get("/users/community-profiles", auth, async (req, res) => {
+	try {
+		if (req.user.role === "BASIC") {
+			await req.user.populate("communityProfiles").execPopulate();
+			return res.json(req.user.communityProfiles);
+		}
+		const communityProfiles = await CommunityProfile.find();
+		res.json(communityProfiles);
+	} catch (e) {
+		res.sendStatus(500);
+	}
+});
+// Getting community profiles created by user
+router.get("/users/requesters", auth, async (req, res) => {
+	try {
+		if (req.user.role === "BASIC") {
+			await req.user.populate("requesters").execPopulate();
+			return res.json(req.user.requesters);
+		}
+		const requesters = await Requester.find();
+		res.json(requesters);
 	} catch (e) {
 		res.sendStatus(500);
 	}
@@ -134,6 +165,28 @@ router.delete("/users", auth, adminAuth, async (req, res) => {
 		res.status(200).json(
 			`${deletedCount} users have been successfully deleted`
 		);
+	} catch (e) {
+		res.sendStatus(500);
+	}
+});
+
+// Updating a user
+router.patch("users/:id", auth, adminAuth, async (req, res) => {
+	const updates = Object.keys(req.body);
+	const allowedUpdates = ["name", "email", "password"];
+	const isValidOperations = updates.every((update) =>
+		allowedUpdates.includes(update)
+	);
+
+	if (!isValidOperations) return res.status(400).json("Invalid operation");
+
+	try {
+		const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+			runValidators: true,
+			new: true,
+		});
+		if (!user) return res.status(400).json("Invalid operation");
+		res.json(user);
 	} catch (e) {
 		res.sendStatus(500);
 	}
