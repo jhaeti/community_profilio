@@ -1,0 +1,85 @@
+*,
+*::before,
+*::after {
+	box-sizing: inherit;
+	margin: 0;
+	padding: 0;
+}
+
+:root {
+	--color-white: #fffaf0;
+	--color-white-transparent: #fffaf099;
+	--color-gray: #707070;
+	--color-dark: #100c08;
+	--color-dark-transparent: #100c0899;
+	--color-primary: #007771;
+	--color-secondary: #17b6ae;
+}
+
+html {
+	font-size: 62.5%; /* Making 1rem = 10px */
+}
+
+@media (max-width: 1200px) {
+	html {
+		font-size: 56.26%; /* Making 1rem = 9px */
+	}
+}
+
+@media screen and (max-width: 900px) {
+	html {
+		font-size: 50%; /* Making 1rem = 8px */
+	}
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 3.5) {
+	html {
+		font-size: 50%; /* Making 1rem = 8px */
+	}
+}
+
+@media (min-width: 1800px) {
+	html {
+		font-size: 75%; /* Making 1rem = 12px */
+	}
+}
+
+body {
+	box-sizing: border-box;
+	font-size: 1.6rem;
+	background: var(--color-white);
+}
+
+/* Utility classes */
+.container {
+	width: 100%;
+	margin: auto;
+	padding: 0 5rem;
+	max-width: 120rem;
+	@media screen and (max-width: 500px) {
+		padding: 0 2.3rem;
+	}
+	@media only screen and (-webkit-min-device-pixel-ratio: 3.5) {
+		padding: 0 2.3rem;
+	}
+}
+
+.cover_screen {
+	min-height: 100vh;
+	width: 100%;
+}
+
+.safe_area {
+	padding-top: 12rem;
+}
+
+/* margin-top */
+.mt-1 {
+	margin-top: 1rem;
+}
+.mt-2 {
+	margin-top: 2rem;
+}
+.mt-6 {
+	margin-top: 6rem;
+}
