@@ -7,6 +7,7 @@ require("./db/mongoose");
 
 const communityProfileRouter = require("./routes/communityProfile");
 const userRouter = require("./routes/user");
+const requesterRouter = require("./routes/requester");
 
 const app = express();
 
@@ -25,5 +26,6 @@ app.use(express.json({ extended: false }));
 // Using routers
 app.use(communityProfileRouter);
 app.use(userRouter);
+app.use(requesterRouter);
 
 module.exports = app;
