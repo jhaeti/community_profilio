@@ -1,0 +1,27 @@
+.adminPanel {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 50rem;
+	gap: 2rem;
+}
+
+.card {
+	width: 28rem;
+	height: 20rem;
+	background-color: var(--color-primary);
+	border-radius: 3rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: var(--color-white);
+	font-size: 3rem;
+	font-weight: bold;
+	flex-direction: column;
+}
+
+.card div {
+	display: block;
+	text-align: center;
+	cursor: pointer;
+}
