@@ -1,0 +1,11 @@
+.flex {
+	display: flex;
+	gap: 2rem;
+	flex-wrap: wrap;
+	margin: 2rem 0;
+}
+.input {
+	flex: 1;
+	font-size: 1.6rem;
+	min-width: 30rem;
+}
