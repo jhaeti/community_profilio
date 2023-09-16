@@ -22,7 +22,7 @@ router.get("/community-profiles", async (req, res) => {
 
 // Count number of CommunityProfile  in database
 // @returns a Number of CommunityProfile  => int
-router.get("/community-profiles/count", auth, adminAuth, async (req, res) => {
+router.get("/community-profiles/count", auth, async (req, res) => {
 	try {
 		const count = await CommunityProfile.countDocuments();
 
