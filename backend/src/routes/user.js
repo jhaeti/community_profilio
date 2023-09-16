@@ -36,18 +36,22 @@ router.post("/users/add-user", auth, adminAuth, async (req, res) => {
 
 		// Sending new user their credentials for accessing data
 		sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-		sgMail.send({
-			from: process.env.DEFAULT_ADMIN_EMAIL,
-			to: user.email,
-			subject: "This are your details for Community Profilio Logins",
-			html: `
-			<div>
-			<h3>Do not share this with anyone</h3>
-			<div>Email: <strong style="color: black;">${user.email}</strong></div>
-			<div>Password: <strong>${password}</strong></div>
-			</div>
-		`,
-		});
+		sgMail
+			.send({
+				from: process.env.DEFAULT_ADMIN_EMAIL,
+				to: user.email,
+				subject: "This are your details for Community Profilio Logins",
+				html: `
+				<div>
+				<h3>Do not share this with anyone</h3>
+				<div>Email: <strong style="color: black;">${user.email}</strong></div>
+				<div>Password: <strong>${password}</strong></div>
+				</div>
+			`,
+			})
+			.catch(() => {
+				console.log("\nMail not sent to new user");
+			});
 
 		res.status(201).json({
 			user,
@@ -147,7 +151,7 @@ router.get("/users", auth, adminAuth, async (req, res) => {
 
 // Count number of Users in database
 // @returns a number
-router.get("/users/count", auth, adminAuth, async (req, res) => {
+router.get("/users/count", auth, async (req, res) => {
 	try {
 		const count = await User.countDocuments();
 		res.json(count);
@@ -171,7 +175,7 @@ router.delete("/users", auth, adminAuth, async (req, res) => {
 });
 
 // Updating a user
-router.patch("users/:id", auth, adminAuth, async (req, res) => {
+router.patch("users/:id", auth, async (req, res) => {
 	const updates = Object.keys(req.body);
 	const allowedUpdates = ["name", "email", "password"];
 	const isValidOperations = updates.every((update) =>
