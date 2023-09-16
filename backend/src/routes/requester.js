@@ -35,7 +35,7 @@ router.post("/requesters", async (req, res) => {
 				subject: `Community Profilio`,
 				html: `<p>${req.body.name} is requesting for main profile</p>`,
 			};
-			sgMail.send(msg);
+			sgMail.send(msg).catch(() => console.log("Message not sent"));
 			return res
 				.status(200)
 				.json("Request for main profile sent successfully");
@@ -79,9 +79,9 @@ router.get("/requesters/:id/grant", auth, async (req, res) => {
 					`Main Profile for ${requester.communityProfileRequested.name} has been sent to ${requester.email}`
 				);
 			})
-			.catch((error) => {
-				console.error(error);
-				res.sendStatus(500);
+			.catch(() => {
+				console.error("Not granted");
+				res.status(500);
 			});
 	}
 });
