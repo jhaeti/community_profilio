@@ -13,6 +13,7 @@
 	--color-dark: #100c08;
 	--color-dark-transparent: #100c0899;
 	--color-primary: #007771;
+	--color-primary-dark: #005551;
 	--color-secondary: #17b6ae;
 }
 
@@ -89,4 +90,17 @@ body {
 }
 .mt-6 {
 	margin-top: 6rem;
+}
+/* margin-top */
+.mb-1 {
+	margin-bottom: 1rem;
+}
+.mb-2 {
+	margin-bottom: 2rem;
+}
+.mb-6 {
+	margin-bottom: 6rem;
+}
+.mb-8 {
+	margin-bottom: 8rem;
 }
