@@ -23,12 +23,29 @@
 	position: relative;
 }
 
-.nav_item a {
+.nav_item a,
+.nav_item button {
 	display: block;
 	padding: 1rem 2rem;
+	border: none;
+	outline: none;
+	font-size: inherit;
+	text-transform: inherit;
 }
 
-.active {
+.nav_item button {
+	background: transparent;
+}
+
+.nav_item button:hover,
+.nav_item a:hover {
+	background-color: #00777171;
+	border-bottom-left-radius: 1rem;
+	border-bottom-right-radius: 1rem;
+}
+
+.active,
+.nav_item .active:hover {
 	background-color: var(--color-primary);
 	border-bottom-left-radius: 1rem;
 	border-bottom-right-radius: 1rem;

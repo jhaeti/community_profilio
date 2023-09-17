@@ -1,7 +1,8 @@
-"use client";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+
 import styles from "./styles.module.css";
+
 const NavMenuItem = ({ text, url }) => {
 	const pathname = usePathname();
 	const isActive = pathname.indexOf(url) >= 0;
