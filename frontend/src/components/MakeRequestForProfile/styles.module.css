@@ -1,0 +1,110 @@
+.flex {
+	display: flex;
+	gap: 2rem;
+	flex-wrap: wrap;
+	margin-bottom: 2rem;
+}
+.input {
+	flex: 1;
+	font-size: 1.6rem;
+	min-width: 30rem;
+}
+
+.textarea {
+	font-size: 1.6rem;
+	margin-right: 2rem;
+	margin-bottom: 2rem;
+	padding: 1rem;
+	background: transparent;
+	border-radius: 0.5rem;
+	border-color: #3333336c;
+	width: 100%;
+}
+
+.textarea:active,
+.textarea:focus {
+	outline: 1px solid var(--color-primary);
+}
+
+.btn {
+	display: inline-block;
+	padding: 1.4rem 3.6rem;
+	background: var(--color-primary);
+	outline: none;
+	border: none;
+	border-radius: 3px;
+	text-transform: uppercase;
+	color: var(--color-white);
+	font-weight: bold;
+	margin-bottom: 8rem;
+}
+
+.btn:hover {
+	background-color: var(--color-primary-dark);
+}
+
+.img {
+	width: 100%;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.prev {
+	position: absolute;
+	top: 60%;
+	left: 3rem;
+	transform: translateY(-50%);
+	cursor: pointer;
+}
+.next {
+	position: absolute;
+	top: 60%;
+	right: 3rem;
+	transform: translateY(-50%);
+	cursor: pointer;
+}
+
+.prev,
+.next {
+	height: 8rem;
+	width: 8rem;
+	background-color: #00000071;
+	border-radius: 50%;
+}
+
+.prev {
+	transform: rotate(210deg);
+}
+.next {
+	transform: rotate(30deg);
+}
+
+.next:before,
+.prev:before,
+.next:after,
+.prev:after {
+	position: inherit;
+	content: "";
+	width: 50%;
+	height: 5px;
+	background-color: var(--color-white);
+	border-radius: 5px;
+}
+
+.next:after,
+.prev:after {
+	top: 50%;
+	left: calc(25% + -1.5px);
+	transform: translateX(29%) rotate(120deg);
+}
+.next::before,
+.prev::before {
+	top: calc(25% + 5px);
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.disable {
+	opacity: 0.5;
+}
