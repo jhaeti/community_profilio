@@ -1,0 +1,32 @@
+.table {
+	margin-top: 2rem;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.table thead {
+	background-color: var(--color-primary);
+	color: var(--color-white);
+	font-size: 2rem;
+}
+
+.table thead td {
+	font-weight: bold;
+	text-transform: uppercase;
+	padding: 1rem;
+}
+
+.table tbody tr td {
+	padding: 1rem;
+}
+
+.table tbody tr {
+	transition: all 0.2s ease-out;
+}
+.table tbody tr:hover {
+	background-color: #130e0a52;
+}
+
+.table tr:nth-child(even) {
+	background-color: #100c0810;
+}
