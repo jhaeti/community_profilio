@@ -1,0 +1,41 @@
+.content {
+	display: flex;
+	align-items: center;
+	margin: 4rem 0;
+	gap: 4rem;
+}
+
+.left {
+	flex: 7;
+	height: 55vh;
+	overflow: hidden;
+	position: relative;
+}
+
+.right {
+	flex: 3;
+	padding: 2rem;
+}
+.right p {
+	margin: 1rem;
+}
+
+.right strong {
+	text-transform: uppercase;
+}
+
+.btn {
+	display: inline-block;
+	width: 100%;
+	outline: none;
+	border: none;
+	padding: 1.4rem;
+	background: var(--color-primary);
+	margin-top: 2rem;
+	font-size: 1.8rem;
+	text-transform: uppercase;
+	font-weight: bold;
+	color: var(--color-white);
+	border-radius: 3px;
+	cursor: pointer;
+}
