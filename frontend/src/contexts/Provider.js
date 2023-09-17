@@ -1,16 +1,27 @@
 "use client";
-import { ThemeProvider, createTheme } from "@mui/material";
+import { ThemeProvider } from "@mui/material";
+import { AppProgressBar as ProgressBar } from "next-nprogress-bar";
 
-const theme = createTheme({
-	palette: {
-		primary: {
-			main: "#007771",
-		},
-	},
-});
+import muiTheme from "@/utils/muiTheme";
+import { MsgContextProvider } from "./MsgContext";
+import { UserContextProvider } from "./UserContext";
 
 const Provider = ({ children }) => {
-	return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+	return (
+		<ThemeProvider theme={muiTheme}>
+			<UserContextProvider>
+				<MsgContextProvider>
+					<ProgressBar
+						height="4px"
+						color="green"
+						options={{ showSpinner: false }}
+						shallowRouting
+					/>
+					{children}
+				</MsgContextProvider>
+			</UserContextProvider>
+		</ThemeProvider>
+	);
 };
 
 export default Provider;
