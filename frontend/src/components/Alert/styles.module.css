@@ -1,0 +1,20 @@
+.alert {
+  font-size: 1.6rem;
+  position: absolute;
+  top: 11rem;
+  right: 1rem;
+  min-width: 30rem;
+  z-index: 200000;
+}
+.alert_content {
+  padding: 1.2rem 0rem 1.2rem 1.8rem;
+  border-radius: 0.3rem;
+  margin-top: 1rem;
+  position: absolute;
+  color: white;
+}
+.alert_close {
+  display: inline;
+  padding: 0 1.8rem;
+  cursor: pointer;
+}
