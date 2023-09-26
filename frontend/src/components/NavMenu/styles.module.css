@@ -10,6 +10,8 @@
 
 .nav_branding {
 	padding: 1rem 0;
+	text-transform: none;
+	font-weight: bold;
 }
 
 .nav_menu {
