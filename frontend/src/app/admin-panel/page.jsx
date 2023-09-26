@@ -16,6 +16,14 @@ const adminPanel = async () => {
 	);
 	const communityCount = await communityCountRes.json();
 
+	const requesterCountRes = await fetch(apiUrl + "/users/requesters/count", {
+		cache: "no-store",
+		headers: {
+			Cookie: cookies(),
+		},
+	});
+	const requesterCount = await requesterCountRes.json();
+
 	return (
 		<div className={[styles.adminPanel, "mt-6"].join(" ")}>
 			<Card
@@ -24,6 +32,11 @@ const adminPanel = async () => {
 				route="/admin-panel/community-profile"
 			/>
 			<UsersCard />
+			<Card
+				count={requesterCountRes.ok && requesterCount}
+				label="REQUESTERS"
+				route={"/admin-panel/requester"}
+			/>
 		</div>
 	);
 };
