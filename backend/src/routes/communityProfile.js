@@ -24,6 +24,10 @@ router.get("/community-profiles", async (req, res) => {
 // @returns a Number of CommunityProfile  => int
 router.get("/community-profiles/count", auth, async (req, res) => {
 	try {
+		if (req.user.role === "BASIC") {
+			await req.user.populate("communityProfiles").execPopulate();
+			return res.json(req.user.communityProfiles.length);
+		}
 		const count = await CommunityProfile.countDocuments();
 
 		res.json(count);
