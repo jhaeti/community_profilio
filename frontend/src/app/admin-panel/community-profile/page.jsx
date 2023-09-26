@@ -1,4 +1,3 @@
-import Typography from "@mui/material/Typography";
 import Table from "./components/Table";
 import apiUrl from "@/utils/apiUrl";
 import { cookies } from "next/dist/client/components/headers";
