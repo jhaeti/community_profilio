@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 
@@ -19,6 +19,18 @@ const Inputs = ({ id }) => {
 	const router = useRouter();
 	const { dispatch } = useMsgContext();
 
+	const [isEmailValid, setIsEmailValid] = useState(false);
+
+	const emailRegex = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/;
+
+	function validateEmail(email) {
+		return emailRegex.test(email);
+	}
+
+	useEffect(() => {
+		setIsEmailValid(validateEmail(state.email));
+	}, [state.email]);
+
 	function handleChange(e) {
 		setState((prevState) => ({
 			...prevState,
@@ -34,6 +46,8 @@ const Inputs = ({ id }) => {
 			!state.reason
 		) {
 			dispatch({ type: WARN, payload: "Please fill all form" });
+		} else if (!isEmailValid) {
+			dispatch({ type: WARN, payload: "Please input a valid email." });
 		} else {
 			fetch(`${apiUrl}/requesters`, {
 				method: "POST",
