@@ -26,17 +26,13 @@ const TableItem = ({ item }) => {
 		if (res.ok) {
 			msgDispatch({
 				type: SUCCESS,
-				payload: data.name + "has been deleted successfully",
+				payload: "Community Profile has been deleted successfully",
 			});
 		} else {
 			msgDispatch({ type: ERROR, payload: "Something went wrong" });
 		}
 		setOpen(false);
 		router.refresh();
-	};
-
-	const handleEdit = () => {
-		router.push("/admin-panel/community-profile/edit/" + String(item._id));
 	};
 
 	const style = {
@@ -63,9 +59,6 @@ const TableItem = ({ item }) => {
 			<td>{item.district}</td>
 			<td>{item.region}</td>
 			<td>
-				<Button onClick={handleEdit} color="secondary">
-					Edit
-				</Button>
 				<Button onClick={handleOpen} color="error">
 					Delete
 				</Button>
