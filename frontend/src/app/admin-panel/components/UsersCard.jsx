@@ -14,7 +14,6 @@ const UsersCard = () => {
 		(async function fetchCount() {
 			if (user?.role === "ADMIN") {
 				const res = await fetch(`${apiUrl}/users/count`, {
-					cache: "no-store",
 					credentials: "include",
 				});
 				const data = await res.json();
