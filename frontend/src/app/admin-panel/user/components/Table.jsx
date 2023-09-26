@@ -13,7 +13,7 @@ const Table = ({ data }) => {
 
 					<td>Role</td>
 
-					<td>Operations</td>
+					<td>Operation</td>
 
 					<td>Date(Y/M/D)</td>
 				</tr>
