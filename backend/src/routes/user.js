@@ -128,6 +128,19 @@ router.get("/users/requesters", auth, async (req, res) => {
 		res.sendStatus(500);
 	}
 });
+// Getting community profiles count created by user
+router.get("/users/requesters/count", auth, async (req, res) => {
+	try {
+		if (req.user.role === "BASIC") {
+			await req.user.populate("requesters").execPopulate();
+			return res.json(req.user.requesters.length);
+		}
+		const count = await Requester.countDocuments();
+		res.json(count);
+	} catch (e) {
+		res.sendStatus(500);
+	}
+});
 
 // Handling Logout functionality
 // @return a status code 200
@@ -151,9 +164,10 @@ router.get("/users", auth, adminAuth, async (req, res) => {
 
 // Count number of Users in database
 // @returns a number
-router.get("/users/count", auth, async (req, res) => {
+router.get("/users/count", auth, adminAuth, async (req, res) => {
 	try {
 		const count = await User.countDocuments();
+		console.log(count);
 		res.json(count);
 	} catch (e) {
 		res.sendStatus(500);
