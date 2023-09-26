@@ -32,10 +32,6 @@ const TableItem = ({ item }) => {
 		router.refresh();
 	};
 
-	const handleEdit = () => {
-		router.push("/admin-panel/user/edit/" + String(item._id));
-	};
-
 	const style = {
 		position: "absolute",
 		top: "50%",
@@ -60,9 +56,6 @@ const TableItem = ({ item }) => {
 			<td>{item.email}</td>
 			<td>{item.role}</td>
 			<td>
-				<Button onClick={handleEdit} color="secondary">
-					Edit
-				</Button>
 				<Button onClick={handleOpen} color="error">
 					Delete
 				</Button>
