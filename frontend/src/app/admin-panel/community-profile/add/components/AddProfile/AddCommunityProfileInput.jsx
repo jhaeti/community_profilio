@@ -7,6 +7,10 @@ import TextField from "@mui/material/TextField";
 import { SUCCESS } from "@/contexts/MsgContext";
 import apiUrl from "@/utils/apiUrl";
 import useMsgContext from "@/hooks/useMsgContext";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
 
 const AddCommunityProfileInput = () => {
 	const [state, setState] = useState({
@@ -23,6 +27,18 @@ const AddCommunityProfileInput = () => {
 
 	function handleSubmit(e) {
 		e.preventDefault();
+
+		if (
+			!state.name ||
+			!state.district ||
+			!state.region ||
+			!state.abstract ||
+			!state.mainProfile ||
+			selectedFiles.length === 0
+		) {
+			console.log(123);
+			return;
+		}
 		const formData = new FormData();
 		for (const name in state) {
 			formData.append(name, state[name]);
@@ -206,17 +222,66 @@ const AddCommunityProfileInput = () => {
 						mt={3}
 						label="DISTRICT"
 					/>
-					<TextField
-						name="region"
-						value={state.region}
-						id="outlined-basic"
-						variant="outlined"
-						color="primary"
-						className={styles.input}
-						onChange={handleChange}
-						mt={3}
-						label="REGION"
-					/>
+					<FormControl style={{ minWidth: "30rem" }}>
+						<InputLabel id="demo-simple-select-label">
+							REGION
+						</InputLabel>
+						<Select
+							name="region"
+							value={state.region}
+							labelId="demo-simple-select-label"
+							id="demo-simple-select"
+							label="REGION"
+							onChange={handleChange}
+						>
+							<MenuItem value={"Ashanti Region"}>
+								Ashanti Region
+							</MenuItem>
+							<MenuItem value={"Brong-Ahafo Region"}>
+								Brong-Ahafo Region
+							</MenuItem>
+							<MenuItem value={"Central Region"}>
+								Central Region
+							</MenuItem>
+							<MenuItem value={"Eastern Region"}>
+								Eastern Region
+							</MenuItem>
+							<MenuItem value={"Greater Accra Region"}>
+								Greater Accra Region
+							</MenuItem>
+							<MenuItem value={"Northern Region"}>
+								Northern Region
+							</MenuItem>
+							<MenuItem value={"Upper East Region"}>
+								Upper East Region
+							</MenuItem>
+							<MenuItem value={"Upper West Region"}>
+								Upper West Region
+							</MenuItem>
+							<MenuItem value={"Volta Region"}>
+								Volta Region
+							</MenuItem>
+							<MenuItem value={"Western Region"}>
+								Western Region
+							</MenuItem>
+							<MenuItem value={"Western North Region"}>
+								Western North Region
+							</MenuItem>
+							<MenuItem value={"Bono Region"}>
+								Bono Region
+							</MenuItem>
+							<MenuItem value={"Oti Region"}>Oti Region</MenuItem>
+							<MenuItem value={"North East Region"}>
+								North East Region
+							</MenuItem>
+							<MenuItem value={"Savannah Region"}>
+								Savannah Region
+							</MenuItem>
+							<MenuItem value={"Ahafo Region"}>
+								Ahafo Region
+							</MenuItem>
+						</Select>
+					</FormControl>
 				</div>
 				<FileUploader />
 			</form>
