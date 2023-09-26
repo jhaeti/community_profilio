@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -23,25 +23,46 @@ const AddUserProfileInput = () => {
 	const { dispatch } = useMsgContext();
 	const router = useRouter();
 
+	const [isEmailValid, setIsEmailValid] = useState(false);
+
+	const emailRegex = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/;
+
+	function validateEmail(email) {
+		return emailRegex.test(email);
+	}
+
+	useEffect(() => {
+		setIsEmailValid(validateEmail(state.email));
+	}, [state.email]);
+
 	function handleSubmit(e) {
 		e.preventDefault();
-		console.log(JSON.stringify(state));
-		(async function addUser() {
-			const res = await fetch(apiUrl + "/users/add-user", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				credentials: "include",
-				body: JSON.stringify(state),
-			});
-			if (res.ok) {
-				dispatch({ type: SUCCESS, payload: "user added successfully" });
-				router.push("/admin-panel/user");
-			} else {
-				dispatch({ type: WARN, payload: await res.json() });
-			}
-		})();
+
+		if (!state.name || !state.email || !state.password || !state.role) {
+			dispatch({ type: WARN, payload: "Input all fields." });
+		} else if (!isEmailValid) {
+			dispatch({ type: WARN, payload: "Enter a valid email." });
+		} else {
+			(async function addUser() {
+				const res = await fetch(apiUrl + "/users/add-user", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					credentials: "include",
+					body: JSON.stringify(state),
+				});
+				if (res.ok) {
+					dispatch({
+						type: SUCCESS,
+						payload: "user added successfully",
+					});
+					router.push("/admin-panel/user");
+				} else {
+					dispatch({ type: WARN, payload: await res.json() });
+				}
+			})();
+		}
 	}
 
 	function handleChange(e) {
