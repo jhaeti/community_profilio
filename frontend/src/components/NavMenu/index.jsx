@@ -60,7 +60,7 @@ const NavMenu = ({ userData }) => {
 	return (
 		<nav className={styles.nav}>
 			<div className="container">
-				<div className={styles.nav_branding}>Logo</div>
+				<div className={styles.nav_branding}>communityProfilio</div>
 				<ul className={styles.nav_menu}>
 					<li className={styles.nav_item}>
 						<Link
