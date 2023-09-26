@@ -81,7 +81,7 @@ router.get("/requesters/:id/grant", auth, async (req, res) => {
 			})
 			.catch(() => {
 				console.error("Not granted");
-				res.status(500);
+				res.sendStatus(500);
 			});
 	}
 });
